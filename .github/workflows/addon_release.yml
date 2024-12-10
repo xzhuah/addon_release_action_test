@@ -4,12 +4,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      addons:
-        description: "Comma-separated list of sample_addon values (e.g., addon1,addon2,addon3)"
-        required: true
-        default: "addon1,addon2,addon3"
 
 jobs:
   release:
@@ -26,37 +20,29 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Step 3: Debug environment and inputs
-      - name: Debug environment and inputs
+      # Step 3: Run the release command for each addon
+      - name: Run release command for sample_addon
         run: |
-          echo "GITHUB_EVENT: ${{ toJson(github.event) }}"
-          echo "GITHUB_EVENT_NAME: ${{ github.event_name }}"
-          echo "Received addons input: ${{ inputs.addons }}"
+          python release.py sample_addon --with_version
 
-      # Step 4: Run release script for each addon
-      - name: Run release script
-        run: |
-          ADDONS="${{ inputs.addons }}"
-          echo "Processing the following addons: $ADDONS"
-          if [ -z "$ADDONS" ]; then
-            echo "No addons specified. Exiting."
-            exit 1
-          fi
+#      - name: Run release command for addon2
+#        run: |
+#          python release.py addon2 --with_version
+#
+#      - name: Run release command for addon3
+#        run: |
+#          python release.py addon3 --with_version
 
-          mkdir -p addon_release
-          IFS=',' read -r -a ADDON_ARRAY <<< "$ADDONS"
-          for addon in "${ADDON_ARRAY[@]}"; do
-            echo "Processing addon: $addon"
-            python release.py "$addon" --with_version
-          done
+      # Add additional steps for each addon as needed...
+      # You can add more steps as needed for each addon.
 
-      # Step 5: List files in addon_release directory
+      # Step 4: List files in addon_release directory
       - name: List files in addon_release directory
         run: |
           echo "Files in addon_release directory:"
           ls addon_release
 
-      # Step 6: Create GitHub Release
+      # Step 5: Create GitHub Release
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -68,10 +54,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Step 7: Upload release assets
+      # Step 6: Upload release assets
       - name: Upload release assets
         run: |
-          for file in addon_release/*.zip; do
+          for file in ../addon_release/*.zip; do
             echo "Uploading $file..."
             gh release upload "release-${{ github.run_id }}" "$file"
           done
