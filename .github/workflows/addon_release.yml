@@ -32,6 +32,11 @@ jobs:
         run: |
           # Retrieve the addons list from workflow inputs
           ADDONS="${{ github.event.inputs.addons }}"
+          echo "Processing the following addons: $ADDONS"
+          if [ -z "$ADDONS" ]; then
+            echo "No addons specified. Exiting."
+            exit 1
+          fi
           
           # Ensure the output directory exists
           mkdir -p ../addon_release
