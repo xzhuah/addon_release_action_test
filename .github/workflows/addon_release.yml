@@ -51,6 +51,7 @@ jobs:
           release_name: "Release ${{ github.run_id }}"
           draft: false
           prerelease: false
+          no_source: true   # This prevents attaching the source code zip of the repository itself
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
