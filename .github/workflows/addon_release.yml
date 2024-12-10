@@ -26,7 +26,15 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+      # Step 3: List all inputs received by the workflow (for debugging)
+      - name: List all inputs
+        run: |
+          echo "Workflow inputs: ${{ toJson(github.event.inputs) }}"
 
+      # Step 4: Debug workflow inputs to ensure the correct value
+      - name: Debug workflow inputs
+        run: |
+          echo "Received addons input: '${{ github.event.inputs.addons }}'"
       # Step 3: Run the release script for each addon
       - name: Run release script
         run: |
