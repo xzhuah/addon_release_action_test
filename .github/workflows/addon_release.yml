@@ -25,7 +25,7 @@ jobs:
         run: |
           python release.py sample_addon --with_version
 
-      - name: Run release command for addon2 as extension
+      - name: Run release command for addon1 as extension
         run: |
           python release.py addon1 --is_extension --with_version
 
@@ -59,7 +59,7 @@ jobs:
         run: |
           for file in ../addon_release/*.zip; do
             echo "Uploading $file..."
-            gh release upload "release-$file" "$file"
+            gh release upload "release-${{ github.run_id }}" "$file"
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
