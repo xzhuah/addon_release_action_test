@@ -29,17 +29,17 @@ jobs:
       # Step 3: List all inputs received by the workflow (for debugging)
       - name: List all inputs
         run: |
-          echo "Workflow inputs: ${{ toJson(github.event.inputs) }}"
+          echo "Workflow inputs: ${{ toJson(inputs.addons) }}"
 
       # Step 4: Debug workflow inputs to ensure the correct value
       - name: Debug workflow inputs
         run: |
-          echo "Received addons input: '${{ github.event.inputs.addons }}'"
+          echo "Received addons input: '${{ inputs.addons }}'"
       # Step 3: Run the release script for each addon
       - name: Run release script
         run: |
           # Retrieve the addons list from workflow inputs
-          ADDONS="${{ github.event.inputs.addons }}"
+          ADDONS="${{ inputs.addons }}"
           echo "Processing the following addons: $ADDONS"
           if [ -z "$ADDONS" ]; then
             echo "No addons specified. Exiting."
