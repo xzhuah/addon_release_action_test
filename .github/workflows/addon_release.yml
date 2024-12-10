@@ -40,7 +40,7 @@ jobs:
       - name: List files in addon_release directory
         run: |
           echo "Files in addon_release directory:"
-          ls addon_release
+          ls ../addon_release
 
       # Step 5: Create GitHub Release
       - name: Create GitHub Release
