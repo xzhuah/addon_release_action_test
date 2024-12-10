@@ -1,6 +1,9 @@
 name: Automatic Release
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       addons:
@@ -23,9 +26,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Step 3: Debug input value to confirm it's being passed correctly
-      - name: Debug input value
+      # Step 3: Debug environment and inputs
+      - name: Debug environment and inputs
         run: |
+          echo "GITHUB_EVENT: ${{ toJson(github.event) }}"
+          echo "GITHUB_EVENT_NAME: ${{ github.event_name }}"
           echo "Received addons input: ${{ inputs.addons }}"
 
       # Step 4: Run release script for each addon
