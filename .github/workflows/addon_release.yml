@@ -29,9 +29,9 @@ jobs:
         run: |
           python release.py addon1 --is_extension --with_version
 
-      - name: Run release command for addon3
+      - name: Run release command for addon2
         run: |
-          python release.py addon3 --is_extension --with_version --with_timestamp
+          python release.py addon2 --is_extension --with_version --with_timestamp
 
       # Add additional steps for each addon as needed...
       # You can add more steps as needed for each addon.
