@@ -12,7 +12,7 @@ bl_info = {
     "name": "Basic Add-on Sample",
     "author": "[You name]",
     "blender": (3, 5, 0),
-    "version": (0, 0, 1),
+    "version": (0, 0, 3),
     "description": "This is a template for building addons",
     "warning": "",
     "doc_url": "[documentation url]",

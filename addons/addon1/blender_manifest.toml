@@ -4,7 +4,7 @@ schema_version = "1.0.0"
 # Change the values according to your extension
 # id must be the same as the directory name, and must be unique
 id = "addon1"
-version = "0.0.2"
+version = "0.0.4"
 name = "Basic Add-on Sample"
 tagline = "This is another extension"
 maintainer = "Developer name <email@address.com>"
